@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import FormInput from '../form-input/form-input.component';
-import CuttomButton from '../custom-button/custom-button.component';
+import FormInput from "../form-input/form-input.component";
+import CuttomButton from "../custom-button/custom-button.component";
 
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 
-import './sign-up.styles.scss';
+import "./sign-up.styles.scss";
 
 class SignUp extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      displayName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     };
   }
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
@@ -30,7 +30,10 @@ class SignUp extends React.Component {
     }
 
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
 
       await createUserProfileDocument(user, { displayName });
 
@@ -40,17 +43,16 @@ class SignUp extends React.Component {
         password: "",
         confirmPassword: "",
       });
-
     } catch (error) {
       console.error(error);
     }
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
 
-    this.setState({[name]: value})
-  }
+    this.setState({ [name]: value });
+  };
 
   render() {
     const { displayName, email, password, confirmPassword } = this.state;
@@ -91,7 +93,7 @@ class SignUp extends React.Component {
             label="Confirm Password"
             required
           ></FormInput>
-          <CuttomButton type='submit'>SIGN UP</CuttomButton>
+          <CuttomButton type="submit">SIGN UP</CuttomButton>
         </form>
       </div>
     );
